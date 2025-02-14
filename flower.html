@@ -8,14 +8,36 @@
     <link rel="icon" href="img/flowers.png" type="image/x-icon" />
     <title>Flower</title>
     <style>
+      #play-button {
+        position: absolute;
+        top: 35%;
+        left: 32%;
+        padding: 10px 20px;
+        background-color: rgba(28, 37, 87, 0.7);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 999;
+        font-size: 16px;
+      }
+
+      #play-button:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+      }
      
 
     </style>
   </head>
   <body class="container">
-    <audio src="sound/ChristianBasso&HaienQiu-Flowers.mp3" autoplay></audio>
-    <div id="lyrics">
-     
+    <audio id="background-music">
+      <source src="sound/ChristianBasso&HaienQiu-Flowers.mp3" type="audio/mpeg" />
+      Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <button id="play-button">Iniciar música</button>
+
+    <div id="lyrics"> 
     </div>
     <div class="night"></div>
     <div class="flowers">
@@ -331,10 +353,11 @@
     <div>
       <span id="changing-text" 
         style="position: absolute;
-        top: 85%; 
+        top: 10%; 
         left: 0%; 
         width: 98%;
         font-weight: bold;
+        font-size: 1.5em;
         font-family: cursive;
         color: yellow;
         text-align: center;
@@ -395,8 +418,26 @@
         }, 1000);
       }
     
-      setInterval(changePhrase, 7000);
+      setInterval(changePhrase, 8000);
     </script>
+     <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const playButton = document.getElementById("play-button");
+        const backgroundMusic = document.getElementById("background-music");
+
+        playButton.addEventListener("click", () => {
+          backgroundMusic.play()
+            .then(() => {
+              playButton.style.display = "none"; // Oculta el botón después de hacer clic
+            })
+            .catch(error => {
+              console.error("Error al reproducir el audio:", error);
+            });
+        });
+      });
+    </script>
+
+
    
   </body>
 </html>
